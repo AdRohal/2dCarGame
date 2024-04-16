@@ -19,18 +19,18 @@ class CarGame:
     def __init__(self, master):
         self.master = master
         self.master.title("2DCar Game")
-        self.canvas = tk.Canvas(master, width=WINDOW_WIDTH, height=WINDOW_HEIGHT, bg="white")  # Change background to white
+        self.canvas = tk.Canvas(master, width=WINDOW_WIDTH, height=WINDOW_HEIGHT, bg="white")
         self.canvas.pack()
 
         # Title
-        self.title_label = tk.Label(master, text="2DCar", font=("Arial", 24), fg="red", bg="white")  # Set background to white
+        self.title_label = tk.Label(master, text="2DCar", font=("Arial", 24), fg="red", bg="white")
         self.title_label.place(relx=0.5, rely=0.1, anchor=tk.CENTER)
 
         # Start button
         self.start_button = tk.Button(master, text="Start the game", font=("Arial", 14), command=self.start_game)
         self.start_button.place(relx=0.5, rely=0.2, anchor=tk.CENTER)
 
-        self.game_started = False  # Flag to track whether the game has started
+        self.game_started = False 
         self.countdown_label = None
         self.countdown = 3
 
@@ -167,15 +167,15 @@ class CarGame:
 
     def restart_game(self):
         self.score = 0
-        self.canvas.delete("all")  # Clear the canvas
+        self.canvas.delete("all") 
         self.game_over_label.destroy()
         self.score_label.destroy()
         self.restart_button.destroy()
         self.return_button.destroy()
-        self.start_game()  # Restart the game
+        self.start_game() 
 
     def return_to_start_page(self):
-        self.canvas.delete("all")  # Clear the canvas
+        self.canvas.delete("all")
         self.score = 0
         self.game_started = False
         self.game_over_label.destroy()
