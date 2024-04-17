@@ -88,12 +88,14 @@ class CarGame:
             anchor=tk.CENTER, image=self.player_car_photo
         )
 
+        # Reset other cars list
+        self.other_cars = []
+
         self.master.bind("<Left>", self.move_left)
         self.master.bind("<Right>", self.move_right)
 
         self.master.after(1000, self.spawn_other_car)
         self.update()
-
     def move_left(self, event):
         if self.canvas.coords(self.player_car)[0] > 0:
             new_x = self.canvas.coords(self.player_car)[0] - LANE_WIDTH
@@ -107,7 +109,16 @@ class CarGame:
                 self.canvas.move(self.player_car, LANE_WIDTH, 0)
 
     def spawn_other_car(self):
-        lane = random.randint(0, LANE_COUNT - 1)
+        occupied_lanes = []
+        for car in self.other_cars:
+            coords = self.canvas.coords(car)
+            if coords:
+                occupied_lanes.append(coords[0] // LANE_WIDTH)
+        empty_lanes = [lane for lane in range(LANE_COUNT) if lane not in occupied_lanes]
+        if empty_lanes:
+            lane = random.choice(empty_lanes)
+        else:
+            lane = random.randint(0, LANE_COUNT - 1)
         other_car = self.canvas.create_image(
             lane * LANE_WIDTH + LANE_WIDTH // 2, -CAR_HEIGHT // 2,
             anchor=tk.CENTER, image=self.other_car_photo
